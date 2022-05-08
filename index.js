@@ -24,12 +24,23 @@ async function run() {
     try {
         await client.connect();
         const bikesCollection = client.db('warehouse').collection('bikes');
+        const vehiclesCollection = client.db('vehicles').collection('types');
 
+        // Getting Bikes
         app.get('/bikes', async (req, res) => {
             const query = {};
             const cursor = bikesCollection.find(query);
             const bikes = await cursor.toArray();
             res.send(bikes);
+        })
+        // Getting vehicles
+        app.get('/vehicles', async (req, res) => {
+            const email = req.query;
+            console.log(email);
+            const query = {};
+            const cursor = vehiclesCollection.find(query);
+            const vehicles = await cursor.toArray();
+            res.send(vehicles);
         })
         // Update bike users
         app.put('/bikes/:id', async(req, res)=>{
