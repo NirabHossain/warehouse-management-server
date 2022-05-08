@@ -31,7 +31,18 @@ async function run() {
             const bikes = await cursor.toArray();
             res.send(bikes);
         })
-        
+        app.put('/bikes/:id', async(req, res)=>{
+            const id = req.params.id;
+            const updatedBike = req.body;
+            const filter = {_id:ObjectId(id)};
+            const options = {upsert: true};
+            const updatedDoc = {
+                $set:{quantity: updatedBike.quantity}
+            };
+            const result =await bikesCollection.updateOne(filter, updatedDoc, options);
+            res.send(result);
+        })
+
         app.get('/bikes/:id', async (req, res) => {
             const id = req.params.id;
             const query = {_id:ObjectId(id)};
