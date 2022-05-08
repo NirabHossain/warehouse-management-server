@@ -31,7 +31,7 @@ async function run() {
             const bikes = await cursor.toArray();
             res.send(bikes);
         })
-        // Update
+        // Update bike users
         app.put('/bikes/:id', async(req, res)=>{
             const id = req.params.id;
             const updatedBike = req.body;
